@@ -29,12 +29,7 @@ st.set_page_config(
 # Custom CSS for modern ChatGPT-style interface
 st.markdown("""
 <style>
-    /* Main container styling */
-    .stApp {
-        background-color: #f5f5f5;
-    }
-    
-    /* Chat message styling */
+    /* --- Chat message bubbles (self-consistent colors, theme-independent) --- */
     .chat-message {
         padding: 1.2rem;
         border-radius: 0.8rem;
@@ -43,29 +38,37 @@ st.markdown("""
         align-items: flex-start;
         animation: fadeIn 0.3s ease-in;
     }
-    
+
     @keyframes fadeIn {
         from { opacity: 0; transform: translateY(10px); }
         to { opacity: 1; transform: translateY(0); }
     }
-    
+
     .user-message {
-        background: linear-gradient(135deg, #7c3aed 0%, #a855f7 100%);
+        background: linear-gradient(135deg, light-dark(#7c3aed, #5b21b6) 0%, light-dark(#a855f7, #7c3aed) 100%);
         margin-left: 20%;
-        box-shadow: 0 4px 15px rgba(124, 58, 237, 0.3);
-        border: 1px solid rgba(168, 85, 247, 0.3);
+        box-shadow: 0 4px 15px light-dark(rgba(124, 58, 237, 0.3), rgba(0, 0, 0, 0.35));
+        border: 1px solid light-dark(rgba(168, 85, 247, 0.3), rgba(139, 92, 246, 0.25));
         color: white;
     }
-    
+
     .assistant-message {
-        background: white;
+        background: light-dark(#ffffff, #1e2233);
         margin-right: 20%;
-        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-        border: 1px solid #e5e5e5;
-        color: #1f2937;
+        box-shadow: 0 2px 10px light-dark(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.35));
+        border: 1px solid light-dark(#e5e5e5, #323a52);
+        color: light-dark(#1f2937, #e5e7eb);
     }
-    
-    /* Avatar styling */
+
+    .user-message .stMarkdown { color: white !important; }
+    .assistant-message .stMarkdown { color: light-dark(#1f2937, #e5e7eb) !important; }
+
+    .chat-message .stMarkdown {
+        font-size: 1rem;
+        line-height: 1.6;
+    }
+
+    /* --- Avatars --- */
     .avatar {
         width: 2.5rem;
         height: 2.5rem;
@@ -77,214 +80,55 @@ st.markdown("""
         font-size: 1.2rem;
         flex-shrink: 0;
     }
-    
+
     .user-avatar {
         background: rgba(124, 58, 237, 0.2);
         border: 2px solid rgba(168, 85, 247, 0.4);
         color: #7c3aed;
     }
-    
+
     .assistant-avatar {
-        background: #f3f4f6;
-        border: 2px solid #e5e7eb;
-        color: #6b7280;
+        background: light-dark(#f3f4f6, #2a3040);
+        border: 2px solid light-dark(#e5e7eb, #3a4257);
+        color: light-dark(#6b7280, #cbd5e1);
     }
-    
-    /* Sidebar styling */
-    .css-1d391kg, .css-1544g2n {
-        background-color: white;
-        border-right: 1px solid #e5e5e5;
-    }
-    
-    /* Sidebar text and labels */
-    .css-1d391kg p, .css-1d391kg label, .css-1544g2n p, .css-1544g2n label {
-        color: #1f2937 !important;
-    }
-    
-    /* Sidebar headers */
-    .css-1d391kg h1, .css-1d391kg h2, .css-1d391kg h3,
-    .css-1544g2n h1, .css-1544g2n h2, .css-1544g2n h3 {
-        color: #1f2937 !important;
-    }
-    
-    /* Sidebar input fields */
-    .css-1d391kg input, .css-1544g2n input {
-        background-color: #f9fafb !important;
-        color: #1f2937 !important;
-        border: 1px solid #e5e5e5 !important;
-    }
-    
-    /* Sidebar text input */
-    .css-1d391kg .stTextInput input, .css-1544g2n .stTextInput input {
-        background-color: #f9fafb !important;
-        color: #1f2937 !important;
-        border: 1px solid #e5e5e5 !important;
-    }
-    
-    /* Sidebar buttons */
-    .css-1d391kg .stButton button, .css-1544g2n .stButton button {
-        color: white !important;
-    }
-    
-    /* Ensure purple buttons in sidebar have white text */
-    [data-testid="stSidebar"] .stButton button[kind="primary"],
-    [data-testid="stSidebar"] .stButton button {
-        color: white !important;
-    }
-    
-    /* Conversation buttons with gradient */
-    button[kind="primary"] {
-        color: white !important;
-    }
-    
-    /* Conversation item styling */
-    .conversation-item {
-        background: #f9fafb;
-        border: 1px solid #e5e5e5;
-        border-radius: 0.8rem;
-        padding: 0.8rem;
-        margin: 0.5rem 0;
-        cursor: pointer;
-        transition: all 0.3s ease;
-        color: #1f2937;
-    }
-    
-    .conversation-item:hover {
-        transform: translateX(5px);
-        box-shadow: 0 4px 15px rgba(124, 58, 237, 0.3);
-        border-color: #7c3aed;
-    }
-    
-    .conversation-item.active {
-        background: linear-gradient(135deg, #7c3aed 0%, #a855f7 100%);
-        box-shadow: 0 4px 15px rgba(124, 58, 237, 0.4);
-        color: white !important;
-    }
-    
-    .conversation-item.active * {
-        color: white !important;
-    }
-    
-    /* Input styling */
+
+    /* --- Inputs: layout only, let the active theme drive colors --- */
     .stTextArea textarea {
-        background-color: white;
-        color: #1f2937;
-        border: 2px solid #e5e5e5;
         border-radius: 0.8rem;
         padding: 1rem;
         font-size: 1rem;
         transition: all 0.3s ease;
     }
-    
+
     .stTextArea textarea:focus {
         border-color: #7c3aed;
         box-shadow: 0 0 0 2px rgba(124, 58, 237, 0.3);
     }
-    
-    /* Button styling */
+
+    /* --- Buttons: brand gradient with white text (works in both themes) --- */
     .stButton > button {
         background: linear-gradient(135deg, #7c3aed 0%, #a855f7 100%);
-        color: white;
+        color: white !important;
         border: none;
         padding: 0.6rem 1.2rem;
         border-radius: 0.6rem;
         font-weight: 600;
         transition: all 0.3s ease;
     }
-    
+
     .stButton > button:hover {
         transform: translateY(-2px);
         box-shadow: 0 6px 20px rgba(124, 58, 237, 0.5);
     }
-    
-    /* Quick action buttons */
-    .quick-action {
-        background: #f9fafb;
-        border: 2px solid #e5e5e5;
-        color: #1f2937;
-        padding: 0.8rem;
-        border-radius: 0.6rem;
-        text-align: center;
-        cursor: pointer;
-        transition: all 0.3s ease;
-    }
-    
-    .quick-action:hover {
-        border-color: #7c3aed;
-        transform: translateY(-2px);
-        box-shadow: 0 4px 15px rgba(124, 58, 237, 0.3);
-    }
-    
-    /* Title styling */
-    h1, h2, h3 {
-        color: #1f2937 !important;
-    }
-    
-    /* Improve text readability */
-    .stMarkdown, .stText {
-        color: #1f2937 !important;
-    }
-    
-    /* Select box styling */
-    .stSelectbox label, .stSlider label {
-        color: #1f2937 !important;
-    }
-    
-    /* Sidebar specific overrides */
-    section[data-testid="stSidebar"] {
-        background-color: white;
-    }
-    
-    section[data-testid="stSidebar"] * {
-        color: #1f2937;
-    }
-    
-    section[data-testid="stSidebar"] h1,
-    section[data-testid="stSidebar"] h2,
-    section[data-testid="stSidebar"] h3,
-    section[data-testid="stSidebar"] h4,
-    section[data-testid="stSidebar"] h5,
-    section[data-testid="stSidebar"] h6 {
-        color: #1f2937 !important;
-    }
-    
-    section[data-testid="stSidebar"] .stTextInput input {
-        background-color: #f9fafb !important;
-        color: #1f2937 !important;
-        border: 1px solid #e5e5e5 !important;
-    }
-    
-    section[data-testid="stSidebar"] .stSelectbox select {
-        background-color: #f9fafb !important;
-        color: #1f2937 !important;
-        border: 1px solid #e5e5e5 !important;
-    }
-    
-    section[data-testid="stSidebar"] .stMarkdown {
-        color: #1f2937 !important;
-    }
-    
-    /* Improve message text contrast */
-    .chat-message .stMarkdown {
-        font-size: 1rem;
-        line-height: 1.6;
-    }
-    
-    .user-message .stMarkdown {
-        color: white !important;
-    }
-    
-    .assistant-message .stMarkdown {
-        color: #1f2937 !important;
-    }
-    
-    /* Welcome message */
+
+    /* --- Welcome message --- */
     .welcome-message {
         text-align: center;
         padding: 3rem;
         color: #6b7280;
     }
-    
+
     .welcome-title {
         font-size: 2rem;
         background: linear-gradient(135deg, #7c3aed 0%, #a855f7 100%);
@@ -292,16 +136,18 @@ st.markdown("""
         -webkit-text-fill-color: transparent;
         margin-bottom: 1rem;
     }
+
 </style>
 """, unsafe_allow_html=True)
 
 # Constants
 AVAILABLE_MODELS = {
-    "Claude Sonnet 4": "anthropic/claude-sonnet-4",
-    "GPT-4o (Nov 2024)": "openai/gpt-4o-2024-11-20",
-    "GPT-4.1": "openai/gpt-4.1",
-    "Gemini 2.5 Pro": "google/gemini-2.5-pro",
-    "Grok 3": "x-ai/grok-3"
+    "Claude Opus 4.8": "claude-opus-4-8",
+    "Claude Sonnet 4.6": "claude-sonnet-4-6",
+    "Claude Haiku 4.5": "claude-haiku-4-5",
+    "GPT 5.5": "gpt-5.5",
+    "Gemini 3.5 Flash": "google/gemini-3.5-flash",
+    "DeepSeek V4 Pro": "deepseek/deepseek-v4-pro"
 }
 
 PERSONALITIES = {
@@ -326,11 +172,11 @@ CONVERSATIONS_DIR.mkdir(exist_ok=True)
 class ChatBot:
     def __init__(self, api_key: str = None, base_url: str = None):
         """Initialize the chatbot with KodeKey configuration."""
-        self.api_key = api_key or os.getenv("KEYSPACES_API_KEY") or os.getenv("KODEKEY_API_KEY")
-        self.base_url = base_url or os.getenv("KEYSPACES_BASE_URL") or os.getenv("KODEKEY_BASE_URL") or "https://main.kk-ai-keys.kodekloud.com/v1"
+        self.api_key = api_key or os.getenv("KODEKEY_API_KEY")
+        self.base_url = base_url or os.getenv("KODEKEY_BASE_URL") or "https://api.ai.kodekloud.com/v1"
         
         if not self.api_key:
-            raise ValueError("KeySpaces API key is required")
+            raise ValueError("KodeKey API key is required")
         
         # Initialize OpenAI client with KodeKey
         self.client = OpenAI(
@@ -400,7 +246,7 @@ def initialize_session_state():
     
     # Auto-load API key from .env if available
     if "api_key" not in st.session_state:
-        env_key = os.getenv("KEYSPACES_API_KEY") or os.getenv("KODEKEY_API_KEY")
+        env_key = os.getenv("KODEKEY_API_KEY")
         if env_key:
             st.session_state.api_key = env_key
             try:
@@ -416,7 +262,7 @@ def create_new_conversation():
         "messages": [],
         "created_at": datetime.now().isoformat(),
         "updated_at": datetime.now().isoformat(),
-        "model": "anthropic/claude-sonnet-4",
+        "model": "claude-opus-4-8",
         "personality": "🤖 Assistant",
         "temperature": 0.7
     }
@@ -477,11 +323,11 @@ def render_message(message: Dict, is_user: bool = True):
     avatar = "👤" if is_user else "🤖"
     css_class = "user-message" if is_user else "assistant-message"
     avatar_class = "user-avatar" if is_user else "assistant-avatar"
-    
+
     # Escape HTML in message content for security
     import html
     escaped_content = html.escape(message["content"])
-    
+
     st.markdown(f"""
     <div class="chat-message {css_class}">
         <div class="avatar {avatar_class}">{avatar}</div>
@@ -503,11 +349,11 @@ def main():
         
         # API Key input
         api_key = st.text_input(
-            "KeySpaces API Key",
+            "KodeKey API Key",
             type="password",
             value=st.session_state.get("api_key", ""),
-            placeholder="sk-kkAI-...",
-            help="Enter your KeySpaces API key"
+            placeholder="sk-...",
+            help="Enter your KodeKey API key"
         )
         
         if api_key:
@@ -534,7 +380,7 @@ def main():
             model_names = list(AVAILABLE_MODELS.keys())
             current_model_name = next(
                 (name for name, model_id in AVAILABLE_MODELS.items() 
-                 if model_id == active_conv.get("model", "anthropic/claude-sonnet-4")), 
+                 if model_id == active_conv.get("model", "claude-opus-4-8")), 
                 model_names[0]
             )
             
@@ -620,9 +466,9 @@ def main():
     if not st.session_state.chatbot:
         st.markdown("""
         <div class="welcome-message">
-            <h1 class="welcome-title">Welcome to KeySpaces AI Chat</h1>
-            <p>Please enter your KeySpaces API key in the sidebar to start chatting!</p>
-            <p>Don't have a KeySpaces API key? Get one at <a href="https://learn.kodekloud.com/user/playgrounds/keyspace" target="_blank">KodeKloud KeySpaces</a></p>
+            <h1 class="welcome-title">Welcome to KodeKey AI Chat</h1>
+            <p>Please enter your KodeKey API key in the sidebar to start chatting!</p>
+            <p>Don't have a KodeKey API key? Get one at <a href="https://learn.kodekloud.com/user/playgrounds/keyspace" target="_blank">KodeKloud KodeKey</a></p>
         </div>
         """, unsafe_allow_html=True)
         return
@@ -651,7 +497,7 @@ def main():
         else:
             st.markdown("""
             <div class="welcome-message">
-                <p>👋 Hello! I'm your AI assistant powered by KeySpaces. How can I help you today?</p>
+                <p>👋 Hello! I'm your AI assistant powered by KodeKey. How can I help you today?</p>
                 <p>Try one of the quick actions below or type your own message!</p>
             </div>
             """, unsafe_allow_html=True)

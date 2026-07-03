@@ -9,11 +9,12 @@ A beautiful, modern ChatGPT-style chatbot with persistent conversation memory, m
 
 ### 🎯 **Core Functionality**
 - **Multiple AI Models**: Switch seamlessly between:
-  - Claude Sonnet 4
-  - GPT-4o (Latest)
-  - GPT-4o
-  - Gemini 2.0 Pro
-  - Grok 3
+  - Claude Opus 4.8
+  - Claude Sonnet 4.6
+  - Claude Haiku 4.5
+  - GPT 5.5
+  - Gemini 3.5 Flash
+  - DeepSeek V4 Pro
 - **Persistent Conversation Memory**: All conversations saved locally as JSON files
 - **Multiple Conversations**: Create unlimited chat sessions with easy switching
 - **Streaming Responses**: Real-time typing effect for natural conversation flow
@@ -71,7 +72,7 @@ pip install streamlit openai python-dotenv
 Create a `.env` file in the project directory:
 ```bash
 KODEKEY_API_KEY="your-kodekey-api-key-here"
-KODEKEY_BASE_URL="https://main.kk-ai-keys.kodekloud.com/v1"
+KODEKEY_BASE_URL="https://api.ai.kodekloud.com/v1"
 ```
 
 **Option B: Manual Entry**
@@ -79,7 +80,7 @@ Enter your API key in the sidebar when you run the app
 
 4. Run the application:
 ```bash
-streamlit run improved_main.py
+streamlit run chatbot_stream.py
 ```
 
 5. Open your browser to `http://localhost:8501`
@@ -88,7 +89,7 @@ streamlit run improved_main.py
 
 ### Environment Variables
 - `KODEKEY_API_KEY`: Your KodeKey API key (auto-loaded if present)
-- `KODEKEY_BASE_URL`: KodeKey API endpoint (default: https://main.kk-ai-keys.kodekloud.com/v1)
+- `KODEKEY_BASE_URL`: KodeKey API endpoint (default: https://api.ai.kodekloud.com/v1)
 
 ### Customization
 You can customize the chatbot by modifying:
