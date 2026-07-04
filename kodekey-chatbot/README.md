@@ -51,7 +51,7 @@ Start conversations quickly with built-in prompts:
 
 ### Prerequisites
 - Python 3.8 or higher
-- KodeKey API key (Get yours [here](https://learn.kodekloud.com/user/playgrounds/keyspace))
+- KodeKey API key (Get yours [here](https://learn.kodekloud.com/user/playgrounds/kodekey))
 
 ### Installation
 

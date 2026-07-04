@@ -5,13 +5,12 @@ A beautiful, modern chatbot with persistent conversation memory and multiple AI 
 """
 
 import streamlit as st
-import openai
 from openai import OpenAI
 import uuid
 import json
 import os
 from datetime import datetime
-from typing import Dict, List, Optional
+from typing import Dict, List
 from dotenv import load_dotenv
 from pathlib import Path
 
@@ -468,7 +467,7 @@ def main():
         <div class="welcome-message">
             <h1 class="welcome-title">Welcome to KodeKey AI Chat</h1>
             <p>Please enter your KodeKey API key in the sidebar to start chatting!</p>
-            <p>Don't have a KodeKey API key? Get one at <a href="https://learn.kodekloud.com/user/playgrounds/keyspace" target="_blank">KodeKloud KodeKey</a></p>
+            <p>Don't have a KodeKey API key? Get one at <a href="https://learn.kodekloud.com/user/playgrounds/kodekey" target="_blank">KodeKloud KodeKey</a></p>
         </div>
         """, unsafe_allow_html=True)
         return
