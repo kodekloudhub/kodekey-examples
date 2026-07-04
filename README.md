@@ -109,8 +109,8 @@ We welcome new examples! Each example should:
 
 ## 🔗 Resources
 
-- **Generate API Key**: [keyspace.kodekloud.com](https://learn.kodekloud.com/user/playgrounds/kodekey)
-- **Explore Playgrounds**: [kodekloud.com/playgrounds](https://kodekloud.com/playgrounds/)
+- **Generate API Key**: [KodeKey](https://learn.kodekloud.com/user/playgrounds/kodekey)
+- **Explore Playgrounds**: [Playgrounds](https://kodekloud.com/playgrounds/)
 
 ---
 
