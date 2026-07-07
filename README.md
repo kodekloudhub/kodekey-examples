@@ -8,12 +8,12 @@ Ready-to-use examples demonstrating KodeKloud KodeKey - the fastest way for deve
 
 KodeKey is an AI playground that provides instant access to multiple cutting-edge language models through a single API key:
 
-✨ **One Key, Multiple Models**: Claude Sonnet 4, GPT-4o, GPT-4.1, Gemini 2.5 Pro, Grok 3, and more  
+✨ **One Key, Multiple Models**: Claude Opus 4.8, Claude Sonnet 4.6, Claude Haiku 4.5, GPT 5.5, Gemini 3.5 Flash, DeepSeek V4 Pro, and more  
 🚀 **Zero Setup**: Skip API approvals and billing setups for each provider  
 📚 **Ready-to-Run Examples**: Copy-paste code that works immediately  
 
 ### 🔑 Get Your Free API Key
-**[Generate your KodeKey API key →](https://learn.kodekloud.com/user/playgrounds/keyspace)**
+**[Generate your KodeKey API key →](https://learn.kodekloud.com/user/playgrounds/kodekey)**
 
 ## ⚠️ Important Disclaimer
 
@@ -49,20 +49,20 @@ cd kodekey-chatbot
 pip install -r requirements.txt
 
 # 4. Set your API key
-echo "KodeKey_API_KEY=your-api-key-here" > .env
+echo "KODEKEY_API_KEY=your-api-key-here" > .env
 
 # 5. Run!
-streamlit run chatbot.py
+streamlit run chatbot_stream.py
 ```
 
 ## 🤖 Available Models
 
-- **Claude Sonnet 4** - Advanced reasoning and analysis
-- **GPT-4o** - Versatile general-purpose AI
-- **GPT-4.1** - Enhanced GPT-4 capabilities
-- **Gemini 2.5 Pro** - Multimodal excellence
-- **Grok 3** - Real-time knowledge
-- **Gemini 2.0 Flash** - Lightning-fast responses
+- **Claude Opus 4.8** - Advanced reasoning and analysis
+- **Claude Sonnet 4.6** - Balanced performance and speed
+- **Claude Haiku 4.5** - Fast, lightweight responses
+- **GPT 5.5** - Versatile general-purpose AI
+- **Gemini 3.5 Flash** - Lightning-fast multimodal
+- **DeepSeek V4 Pro** - Strong coding and reasoning
 
 ## 💳 Subscription Tiers
 
@@ -84,11 +84,11 @@ from openai import OpenAI
 # Works with standard OpenAI client!
 client = OpenAI(
     api_key="your-KodeKey-api-key",
-    base_url="https://main.kk-ai-keys.kodekloud.com/v1"
+    base_url="https://api.ai.kodekloud.com/v1"
 )
 
 response = client.chat.completions.create(
-    model="anthropic/claude-sonnet-4",
+    model="claude-opus-4-8",
     messages=[{"role": "user", "content": "Hello AI!"}]
 )
 ```
@@ -109,8 +109,8 @@ We welcome new examples! Each example should:
 
 ## 🔗 Resources
 
-- **Generate API Key**: [keyspace.kodekloud.com](https://learn.kodekloud.com/user/playgrounds/keyspace)
-- **Explore Playgrounds**: [kodekloud.com/playgrounds](https://kodekloud.com/playgrounds/)
+- **Generate API Key**: [KodeKey](https://learn.kodekloud.com/user/playgrounds/kodekey)
+- **Explore Playgrounds**: [Playgrounds](https://kodekloud.com/playgrounds/)
 
 ---
 
